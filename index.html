@@ -342,6 +342,67 @@
     .service-body{ grid-template-columns: 1fr; }
   }
 
+  /* ---------- GRADES ---------- */
+  .grades{ background: var(--paper); }
+  .grades-body{
+    display:grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .grades-content h3{ font-size: 26px; margin-bottom: 16px; }
+  .grades-content p{ font-size: 16px; color: var(--charcoal-soft); margin-bottom: 20px; max-width: 50ch; }
+  .grades-cta{
+    margin-top: 48px;
+    padding: 32px;
+    background: var(--charcoal);
+    color: var(--paper);
+    border-radius: 8px;
+  }
+  .grades-cta h4{ font-family: var(--font-head); font-size: 20px; color: var(--amber); margin-bottom: 12px; }
+  .grades-cta p{ color: var(--concrete); margin-bottom: 24px; font-size: 15px; line-height: 1.6; }
+  
+  .grades-table-wrapper{
+    overflow-y: auto;
+    max-height: 520px;
+    border: 1px solid var(--charcoal-soft);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .grades-table-wrapper::-webkit-scrollbar { width: 6px; }
+  .grades-table-wrapper::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 4px; }
+  .grades-table{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background: #fff;
+  }
+  .grades-table th{
+    position: sticky;
+    top: 0;
+    background: var(--charcoal);
+    color: var(--paper);
+    padding: 18px 24px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    font-size: 15px;
+  }
+  .grades-table td{
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--charcoal-soft);
+  }
+  .grades-table td:first-child{ font-weight: 700; color: var(--charcoal); }
+  .grades-table tr:last-child td{ border-bottom: none; }
+  .grades-table tbody tr:hover{ background: #faf8f2; }
+
+  @media (max-width: 960px){
+    .grades-body{ grid-template-columns: 1fr; }
+    .grades-table-wrapper{ max-height: none; }
+  }
+
   /* ---------- PROCESS ---------- */
   .process{ background: var(--paper); }
   .process-grid{
@@ -542,6 +603,7 @@
     <nav>
       <a href="#service">Mixer Supply</a>
       <a href="#process">How It Works</a>
+      <a href="#grades">Concrete Grades</a>
       <a href="#coverage">Coverage</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -606,6 +668,59 @@
         <li><span class="k">Booking</span><span class="v">By phone, confirmed before dispatch</span></li>
         <li><span class="k">Priority</span><span class="v">On-time arrival at your pour window</span></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section class="grades" id="grades">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Concrete Grades</h2>
+      <div class="tag">M7.5 TO M80</div>
+    </div>
+    <div class="grades-body reveal">
+      <div class="grades-content">
+        <h3>Quality Concrete for Every Construction Requirement</h3>
+        <p>We supply Ready-Mix Concrete (RMC) in a wide range of grades, from M7.5 to M80, suitable for residential, commercial, industrial and infrastructure projects.</p>
+        <p>The "M" indicates the concrete mix, while the number represents its characteristic compressive strength in MPa (N/mm²) at 28 days.</p>
+        
+        <div class="grades-cta">
+          <h4>Ready-Mix Concrete Delivered to Your Site</h4>
+          <p>Get the required concrete grade mixed and delivered directly to your construction site using our concrete mixer trucks. We help ensure consistent quality, timely delivery and the right concrete grade for your project.</p>
+          <p style="font-weight: 600; color: var(--paper);">Need the right concrete grade for your project?</p>
+          <a class="btn btn-solid" href="tel:+919845052391" style="margin-top: 10px;">Contact us today</a>
+        </div>
+      </div>
+      
+      <div class="grades-table-wrapper">
+        <table class="grades-table">
+          <thead>
+            <tr>
+              <th>Grade</th>
+              <th>Strength (28 Days)</th>
+              <th>Common Applications</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>M7.5</td><td>7.5 MPa</td><td>Levelling &amp; non-structural work</td></tr>
+            <tr><td>M10</td><td>10 MPa</td><td>PCC &amp; basic construction</td></tr>
+            <tr><td>M15</td><td>15 MPa</td><td>PCC &amp; light construction</td></tr>
+            <tr><td>M20</td><td>20 MPa</td><td>General RCC construction</td></tr>
+            <tr><td>M25</td><td>25 MPa</td><td>Residential &amp; commercial RCC</td></tr>
+            <tr><td>M30</td><td>30 MPa</td><td>Structural RCC &amp; foundations</td></tr>
+            <tr><td>M35</td><td>35 MPa</td><td>Heavy structural work</td></tr>
+            <tr><td>M40</td><td>40 MPa</td><td>High-strength structural concrete</td></tr>
+            <tr><td>M45</td><td>45 MPa</td><td>Bridges &amp; heavy structures</td></tr>
+            <tr><td>M50</td><td>50 MPa</td><td>High-strength construction</td></tr>
+            <tr><td>M55</td><td>55 MPa</td><td>High-performance structures</td></tr>
+            <tr><td>M60</td><td>60 MPa</td><td>High-rise &amp; infrastructure projects</td></tr>
+            <tr><td>M65</td><td>65 MPa</td><td>Specialized high-strength construction</td></tr>
+            <tr><td>M70</td><td>70 MPa</td><td>Advanced infrastructure projects</td></tr>
+            <tr><td>M75</td><td>75 MPa</td><td>High-performance concrete works</td></tr>
+            <tr><td>M80</td><td>80 MPa</td><td>Specialized &amp; high-strength structures</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>
@@ -704,7 +819,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Dynamically add reveal classes to elements
-    const elementsToReveal = document.querySelectorAll('.hero-content, .clients-label, .marquee-container, .section-head, .service-body, .process-step, .coverage-grid > div, .coverage-visual, .contact-panel');
+    const elementsToReveal = document.querySelectorAll('.hero-content, .clients-label, .marquee-container, .section-head, .service-body, .grades-body, .process-step, .coverage-grid > div, .coverage-visual, .contact-panel');
     
     elementsToReveal.forEach((el) => {
       el.classList.add('reveal');
