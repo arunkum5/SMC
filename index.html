@@ -82,8 +82,16 @@
     color: var(--paper);
     white-space: nowrap;
     letter-spacing: 1px;
+    cursor: default;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+    display: inline-block;
   }
-  .brand .gold{ color: var(--amber); }
+  .brand:hover{
+    transform: scale(1.05);
+    text-shadow: 0 4px 16px rgba(224, 165, 49, 0.35);
+  }
+  .brand .gold{ color: var(--amber); transition: color 0.3s ease, text-shadow 0.3s ease; }
+  .brand:hover .gold{ color: #ffca58; text-shadow: 0 0 12px rgba(224, 165, 49, 0.6); }
   nav{
     display:flex;
     gap: 28px;
@@ -578,27 +586,24 @@
 
   /* ---------- CHATBOT ---------- */
   .chatbot-wrapper{
-    position: fixed;
-    left: 24px;
-    bottom: 24px;
-    z-index: 100;
+    position: relative;
   }
   .chat-toggle{
     width: 56px; height: 56px;
-    background: var(--charcoal);
-    color: var(--amber);
-    border: 2px solid var(--amber);
+    border: 2px solid var(--charcoal);
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
     display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s ease;
+    transition: transform 0.15s ease;
+    padding: 0; overflow: hidden;
+    background: var(--charcoal);
   }
-  .chat-toggle:hover{ transform: scale(1.05); }
-  .chat-toggle svg{ width: 28px; height: 28px; }
+  .chat-toggle:hover{ transform: translateY(-3px); }
+  .chat-toggle img{ width: 100%; height: 100%; object-fit: cover; }
   .chat-panel{
     position: absolute;
-    bottom: 76px; left: 0;
+    bottom: 70px; right: 0; left: auto;
     width: 320px;
     background: var(--paper);
     border: 1px solid var(--charcoal);
@@ -659,7 +664,7 @@
   .chat-options button:hover{ background: var(--charcoal); color: var(--paper); }
 
   @media (max-width: 600px){
-    .chatbot-wrapper{ left: 16px; bottom: 16px; }
+    .chat-toggle{ width: 50px; height: 50px; }
     .chat-panel{ width: calc(100vw - 32px); }
   }
 
@@ -902,27 +907,27 @@
   <a class="fab fab-whatsapp" href="https://wa.me/919845052391" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 1.98.581 3.83 1.587 5.39L2 22l4.727-1.55a9.94 9.94 0 0 0 5.277 1.508h.004c5.518 0 10.004-4.486 10.004-10.004C21.996 6.486 17.522 2 12.004 2zm0 18.28h-.003a8.24 8.24 0 0 1-4.21-1.155l-.302-.18-3.13 1.026 1.043-3.052-.198-.312a8.23 8.23 0 0 1-1.26-4.395c0-4.55 3.706-8.257 8.264-8.257 2.208 0 4.283.86 5.844 2.42a8.208 8.208 0 0 1 2.416 5.842c0 4.55-3.708 8.263-8.264 8.263z"/></svg>
   </a>
-</div>
-
-<div class="chatbot-wrapper">
-  <button class="chat-toggle" aria-label="Open Chat" onclick="toggleChat()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-  </button>
-  <div class="chat-panel" id="chatPanel">
-    <div class="chat-header">
-      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> SMC Assistant</h4>
-      <button class="chat-close" onclick="toggleChat()">&times;</button>
-    </div>
-    <div class="chat-body" id="chatBody">
-      <div class="chat-msg bot-msg">
-        Hi! I can help you choose the right concrete grade for your project. What are you building?
+  <div class="chatbot-wrapper">
+    <button class="chat-toggle" aria-label="Open Chat" onclick="toggleChat()">
+      <img src="avatar.webp" alt="SMC Support">
+    </button>
+    <div class="chat-panel" id="chatPanel">
+      <div class="chat-header">
+        <h4><img src="avatar.webp" alt="" style="width:24px; height:24px; border-radius:50%; margin-right:4px; object-fit:cover;"> SMC Assistant</h4>
+        <button class="chat-close" onclick="toggleChat()">&times;</button>
       </div>
-    </div>
-    <div class="chat-options" id="chatOptions">
-      <button onclick="sendMsg('Residential / Commercial', 'For residential &amp; commercial RCC, we recommend M25. For foundations, M30 is ideal.')">Residential / Commercial</button>
-      <button onclick="sendMsg('Heavy Structures / Bridges', 'For heavy structural work, M35 to M45 is recommended. For high-rise and advanced infrastructure, we supply M60 to M80.')">Heavy Structures / Bridges</button>
-      <button onclick="sendMsg('Basic Levelling (PCC)', 'For levelling and basic non-structural work, M7.5 to M15 is standard.')">Basic Levelling (PCC)</button>
-      <button onclick="sendMsg('Show all grades', 'We supply everything from M7.5 (7.5 MPa) for levelling, up to M80 (80 MPa) for specialized high-strength structures. Check our Concrete Grades section for the full table!')">Show all grades</button>
+      <div class="chat-body" id="chatBody">
+        <div class="chat-msg bot-msg">
+          Hi! I'm here to help. What would you like to know about our ready-mix concrete?
+        </div>
+      </div>
+      <div class="chat-options" id="chatOptions">
+        <button onclick="sendMsg('What areas do you serve?', 'We serve all major areas across Bangalore, including North, South, East, West, and the Outer Ring Road. Just give us a call to confirm delivery to your specific site!')">What areas do you serve?</button>
+        <button onclick="sendMsg('How do I book?', 'Booking is easy! Just call us at 98450 52391 with your site location, concrete grade, and quantity needed. We will lock in your delivery slot instantly.')">How do I book?</button>
+        <button onclick="sendMsg('What is the minimum order?', 'Our transit mixers are equipped to handle large volumes, but minimum dispatch quantities can vary based on location. Call our team to discuss your exact requirements.')">What is the minimum order?</button>
+        <button onclick="sendMsg('Grade for Residential/Commercial', 'For residential &amp; commercial RCC, we recommend M25. For foundations, M30 is ideal.')">Grade for Residential/Commercial</button>
+        <button onclick="sendMsg('Show all grades', 'We supply everything from M7.5 (7.5 MPa) for levelling, up to M80 (80 MPa) for specialized high-strength structures. Check our Concrete Grades section for the full table!')">Show all grades</button>
+      </div>
     </div>
   </div>
 </div>
@@ -960,7 +965,13 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <div class="brand">SM<span class="gold">C</span> CONCRET<span class="gold">E</span></div>
+    <div class="footer-left">
+      <div class="brand">SM<span class="gold">C</span> CONCRET<span class="gold">E</span></div>
+      <div style="margin-top: 8px; font-size: 12px; opacity: 0.7; display: flex; align-items: center; gap: 4px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px; height:12px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Visitors: <span id="vCount">28,492</span>
+      </div>
+    </div>
     <div class="footer-right">
       <div>Solid Strength on Time — Servicing across Bangalore</div>
       <div class="footer-address">No.105, Srinivasapura, Baiyapanahalli, Mittiganahalli, Bagalur Post, Yelahanka, Bangalore -64</div>
