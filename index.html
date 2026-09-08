@@ -6,7 +6,7 @@
 <title>SMC Concrete — Solid Strength on Time</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Cinzel:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --concrete: #c9c4b6;
@@ -63,7 +63,7 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: var(--charcoal);
+    background: linear-gradient(rgba(34, 31, 28, 0.85), rgba(34, 31, 28, 0.85)), url('gravel.webp') center/cover;
     border-bottom: 4px solid var(--amber);
   }
   .header-inner{
@@ -76,13 +76,14 @@
     gap: 24px;
   }
   .brand{
-    font-family: var(--font-head);
+    font-family: 'Cinzel', serif;
     font-weight: 800;
-    font-size: 22px;
+    font-size: 26px;
     color: var(--paper);
     white-space: nowrap;
+    letter-spacing: 1px;
   }
-  .brand span{ color: var(--amber); }
+  .brand .gold{ color: var(--amber); }
   nav{
     display:flex;
     gap: 28px;
@@ -121,18 +122,15 @@
 
   /* ---------- HERO ---------- */
   .hero{
-    background: var(--charcoal);
+    background: linear-gradient(rgba(34, 31, 28, 0.8), rgba(34, 31, 28, 0.8)), url('p1.webp') center/cover no-repeat;
     color: var(--paper);
     position: relative;
     overflow: hidden;
     padding: 88px 0 0;
   }
-  .hero-grid{
-    display:grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 40px;
-    align-items: end;
+  .hero-content{
     padding-bottom: 64px;
+    max-width: 800px;
   }
   .hero-eyebrow-line{
     display:flex;
@@ -189,28 +187,26 @@
   }
   .btn-ghost:hover{ border-color: var(--paper); }
 
-  .hero-panel{
-    background: var(--charcoal-soft);
-    border: 1px solid var(--line-light);
-    padding: 30px;
-  }
-  .hero-panel .label{
-    font-size: 13px;
-    color: var(--amber);
-    font-weight: 600;
-    margin-bottom: 14px;
-  }
-  .hero-panel ul{ list-style:none; }
-  .hero-panel li{
-    display:flex;
-    gap: 12px;
-    padding: 12px 0;
-    border-top: 1px solid var(--line-light);
+  .hero-features{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 36px;
     color: var(--concrete);
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 500;
   }
-  .hero-panel li:first-of-type{ border-top:none; }
-  .hero-panel li strong{ color: var(--paper); font-weight: 600; }
+  .hero-features span{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--paper);
+  }
+  .hero-features span svg{
+    width: 20px;
+    height: 20px;
+    color: var(--amber);
+  }
 
   .slab-edge{
     height: 46px;
@@ -220,8 +216,81 @@
   }
 
   @media (max-width: 860px){
-    .hero-grid{ grid-template-columns: 1fr; }
     .hero{ padding-top: 56px; }
+  }
+
+  /* ---------- CLIENTS MARQUEE ---------- */
+  .clients{
+    background: var(--charcoal);
+    padding: 32px 0 24px;
+    border-bottom: 2px solid var(--charcoal-soft);
+    overflow: hidden;
+  }
+  .clients-label{
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--amber);
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .marquee-container{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+  }
+  .marquee-container::before, .marquee-container::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 2;
+  }
+  .marquee-container::before{
+    left: 0;
+    background: linear-gradient(to right, var(--charcoal), transparent);
+  }
+  .marquee-container::after{
+    right: 0;
+    background: linear-gradient(to left, var(--charcoal), transparent);
+  }
+  .marquee-content{
+    display: flex;
+    gap: 80px;
+    animation: scroll-left 15s linear infinite;
+    white-space: nowrap;
+    padding-right: 80px;
+  }
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .client-logo{
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--concrete);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  .client-logo:hover{ opacity: 1; }
+  .client-logo svg{ width: 26px; height: 26px; color: var(--amber); }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.reveal-active{
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* ---------- SECTION BASICS ---------- */
@@ -274,29 +343,50 @@
   }
 
   /* ---------- PROCESS ---------- */
-  .process{ background: var(--concrete); }
+  .process{ background: var(--paper); }
   .process-grid{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 2px solid var(--charcoal);
-    border-left: 2px solid var(--charcoal);
+    gap: 24px;
   }
   .process-step{
-    border-right: 2px solid var(--charcoal);
-    border-bottom: 2px solid var(--charcoal);
     padding: 34px 28px;
-    background: var(--paper);
+    background: var(--charcoal);
+    color: var(--paper);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
+  .process-step:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  }
+  .process-step::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    z-index: 0;
+    transition: opacity 0.25s ease;
+  }
+  .process-step:hover::before{ opacity: 0.3; }
+  .process-step:nth-child(1)::before{ background-image: url('gravel.webp'); }
+  .process-step:nth-child(2)::before{ background-image: url('msand.webp'); }
+  .process-step:nth-child(3)::before{ background-image: url('cement.webp'); }
+  .process-step .content{ position: relative; z-index: 1; }
   .process-step .num{
     font-family: var(--font-head);
     font-size: 40px;
-    color: var(--rust);
+    color: var(--amber);
     display:block;
     margin-bottom: 14px;
   }
-  .process-step h3{ font-size: 20px; margin-bottom: 10px; }
-  .process-step p{ font-size: 15px; color: var(--charcoal-soft); }
+  .process-step h3{ font-size: 20px; margin-bottom: 10px; color: var(--paper); }
+  .process-step p{ font-size: 15px; color: var(--concrete); }
 
   @media (max-width: 780px){
     .process-grid{ grid-template-columns: 1fr; }
@@ -306,7 +396,7 @@
   .coverage{ background: var(--charcoal); color: var(--paper); }
   .coverage-grid{
     display:grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.9fr 1.1fr;
     gap: 56px;
     align-items: center;
   }
@@ -326,11 +416,14 @@
   }
   .coverage-visual{
     aspect-ratio: 1/1;
-    border: 1px solid var(--line-light);
+    border: 6px solid var(--charcoal-soft);
+    border-radius: 12px;
     position: relative;
     display:flex;
     align-items:center;
     justify-content:center;
+    overflow: hidden;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.4);
   }
   .coverage-visual svg{ width: 100%; height: 100%; }
 
@@ -356,30 +449,28 @@
     display:grid;
     gap: 14px;
   }
-  .call-lines a{
+  .contact-btn{
     display:flex;
     align-items:center;
-    justify-content: space-between;
-    background: var(--charcoal-soft);
-    border: 1px solid var(--line-light);
-    padding: 18px 22px;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #f5ce7a 0%, #d89922 100%);
+    color: var(--charcoal);
+    border-radius: 6px;
+    padding: 14px 20px;
     text-decoration:none;
-    color: var(--paper);
     font-family: var(--font-head);
-    font-size: 22px;
+    font-size: 19px;
     font-weight: 700;
-    transition: border-color 0.15s ease, background 0.15s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
-  .call-lines a small{
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 13px;
-    color: var(--amber);
-    display:block;
-    margin-bottom: 4px;
+  .contact-btn svg{ width: 22px; height: 22px; }
+  .contact-btn:hover{
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #fade92 0%, #e8aa31 100%);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   }
-  .call-lines a:hover{ border-color: var(--amber); background: var(--charcoal); }
-  .call-icon{ font-family: var(--font-body); font-size: 20px; color: var(--amber); }
 
   @media (max-width: 860px){
     .contact-panel{ grid-template-columns: 1fr; padding: 36px 26px; }
@@ -396,12 +487,13 @@
     gap: 14px;
   }
   .fab{
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     display:flex;
     align-items:center;
     justify-content:center;
     border: 2px solid var(--charcoal);
+    border-radius: 50%;
     text-decoration:none;
     box-shadow: 0 6px 16px rgba(0,0,0,0.28);
     transition: transform 0.15s ease;
@@ -409,12 +501,12 @@
   .fab:hover{ transform: translateY(-2px); }
   .fab-call{ background: var(--amber); }
   .fab-whatsapp{ background: #25D366; border-color: #128C3E; }
-  .fab svg{ width: 26px; height: 26px; }
+  .fab svg{ width: 22px; height: 22px; }
 
   @media (max-width: 600px){
     .floating-actions{ right: 16px; bottom: 16px; gap: 12px; }
-    .fab{ width: 50px; height: 50px; }
-    .fab svg{ width: 23px; height: 23px; }
+    .fab{ width: 42px; height: 42px; }
+    .fab svg{ width: 20px; height: 20px; }
   }
 
   /* ---------- FOOTER ---------- */
@@ -433,6 +525,12 @@
     font-size: 14px;
   }
   .footer-inner .brand{ font-size: 16px; }
+  .footer-right{ text-align: right; }
+  .footer-address{ margin-top: 6px; font-size: 13px; opacity: 0.8; max-width: 400px; margin-left: auto; }
+  @media (max-width: 600px){
+    .footer-right{ text-align: left; }
+    .footer-address{ margin-left: 0; }
+  }
 
 </style>
 </head>
@@ -440,38 +538,55 @@
 
 <header>
   <div class="header-inner">
-    <div class="brand">SMC <span>CONCRETE</span></div>
+    <div class="brand">SM<span class="gold">C</span> CONCRET<span class="gold">E</span></div>
     <nav>
       <a href="#service">Mixer Supply</a>
       <a href="#process">How It Works</a>
       <a href="#coverage">Coverage</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a class="header-call" href="tel:+919845052391">Call Now — 98450 52391</a>
+    <a class="header-call" href="tel:+919845052391">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      98450 52391
+    </a>
   </div>
 </header>
 
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="hero-eyebrow-line"><span class="bar"></span> Ready-mix concrete mixer supply, Bangalore</div>
-      <h1>Solid strength <em>on time.</em></h1>
-      <p class="hero-sub">SMC Concrete supplies transit mixers loaded and dispatched to your site on schedule — so your pour starts when your crew is ready, not when the truck decides to show up.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-solid" href="tel:+919845052391">Call 98450 52391</a>
-        <a class="btn btn-ghost" href="tel:+919535545456">Call 95355 45456</a>
-      </div>
+  <div class="wrap hero-content">
+    <div class="hero-eyebrow-line"><span class="bar"></span> Ready-mix concrete mixer supply, Bangalore</div>
+    <h1>Solid strength <em>on time.</em></h1>
+    
+    <div class="hero-features">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> On-time dispatch</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Bangalore-wide coverage</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Straight booking by phone</span>
     </div>
-    <div class="hero-panel">
-      <div class="label">WHAT YOU GET</div>
-      <ul>
-        <li><strong>On-time dispatch</strong><span> — mixer scheduled to your pour window, not a loose day estimate.</span></li>
-        <li><strong>Bangalore-wide coverage</strong><span> — sites across the city and surrounding areas.</span></li>
-        <li><strong>Straight booking by phone</strong><span> — confirm grade, quantity and slot in one call.</span></li>
-      </ul>
+
+    <div class="hero-ctas">
+      <a class="btn btn-solid" href="tel:+919845052391">Call 98450 52391</a>
+      <a class="btn btn-ghost" href="tel:+919535545456">Call 95355 45456</a>
     </div>
   </div>
   <div class="slab-edge"></div>
+</section>
+
+<section class="clients">
+  <div class="wrap">
+    <div class="clients-label">Our Esteemed Customers</div>
+    <div class="marquee-container">
+      <div class="marquee-content">
+        <!-- Original set -->
+        <span class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg> Embassy Group</span>
+        <span class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg> Casagrand</span>
+        <span class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Manyata Tech Park</span>
+        <!-- Duplicate set for seamless loop -->
+        <span class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg> Embassy Group</span>
+        <span class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg> Casagrand</span>
+        <span class="client-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Manyata Tech Park</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="service" id="service">
@@ -503,19 +618,25 @@
     </div>
     <div class="process-grid">
       <div class="process-step">
-        <span class="num">01</span>
-        <h3>Call &amp; confirm</h3>
-        <p>Tell us your site location, concrete grade, and quantity needed.</p>
+        <div class="content">
+          <span class="num">01</span>
+          <h3>Call &amp; confirm</h3>
+          <p>Tell us your site location, concrete grade, and quantity needed.</p>
+        </div>
       </div>
       <div class="process-step">
-        <span class="num">02</span>
-        <h3>Lock the slot</h3>
-        <p>We confirm a delivery window that matches when your crew is ready to pour.</p>
+        <div class="content">
+          <span class="num">02</span>
+          <h3>Lock the slot</h3>
+          <p>We confirm a delivery window that matches when your crew is ready to pour.</p>
+        </div>
       </div>
       <div class="process-step">
-        <span class="num">03</span>
-        <h3>Mixer arrives</h3>
-        <p>Your transit mixer reaches site on schedule, ready to unload.</p>
+        <div class="content">
+          <span class="num">03</span>
+          <h3>Mixer arrives</h3>
+          <p>Your transit mixer reaches site on schedule, ready to unload.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -535,17 +656,7 @@
       </div>
     </div>
     <div class="coverage-visual">
-      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="150" cy="150" r="148" stroke="#e0a531" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="150" cy="150" r="105" stroke="#e0a531" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="150" cy="150" r="60" stroke="#e0a531" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="150" cy="150" r="6" fill="#e0a531"/>
-        <circle cx="205" cy="95" r="4" fill="#f0ece2"/>
-        <circle cx="90" cy="110" r="4" fill="#f0ece2"/>
-        <circle cx="210" cy="205" r="4" fill="#f0ece2"/>
-        <circle cx="95" cy="215" r="4" fill="#f0ece2"/>
-        <circle cx="150" cy="60" r="4" fill="#f0ece2"/>
-      </svg>
+      <video src="animation.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
     </div>
   </div>
 </section>
@@ -558,28 +669,63 @@
         <p>Call either number below with your site location, grade, and quantity. We'll confirm your delivery window on the spot.</p>
       </div>
       <div class="call-lines">
-        <a href="tel:+919845052391"><span><small>Primary line</small>98450 52391</span><span class="call-icon">↳</span></a>
-        <a href="tel:+919535545456"><span><small>Alternate line</small>95355 45456</span><span class="call-icon">↳</span></a>
+        <a href="tel:+919845052391" class="contact-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          98450 52391
+        </a>
+        <a href="tel:+919535545456" class="contact-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          95355 45456
+        </a>
       </div>
     </div>
   </div>
 </section>
 
 <div class="floating-actions">
-  <a class="fab fab-whatsapp" href="https://wa.me/919845052391" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 1.98.581 3.83 1.587 5.39L2 22l4.727-1.55a9.94 9.94 0 0 0 5.277 1.508h.004c5.518 0 10.004-4.486 10.004-10.004C21.996 6.486 17.522 2 12.004 2zm0 18.28h-.003a8.24 8.24 0 0 1-4.21-1.155l-.302-.18-3.13 1.026 1.043-3.052-.198-.312a8.23 8.23 0 0 1-1.26-4.395c0-4.55 3.706-8.257 8.264-8.257 2.208 0 4.283.86 5.844 2.42a8.208 8.208 0 0 1 2.416 5.842c0 4.55-3.708 8.263-8.264 8.263z"/></svg>
-  </a>
   <a class="fab fab-call" href="tel:+919845052391" aria-label="Call SMC Concrete">
     <svg viewBox="0 0 24 24" fill="none" stroke="#221f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  </a>
+  <a class="fab fab-whatsapp" href="https://wa.me/919845052391" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 1.98.581 3.83 1.587 5.39L2 22l4.727-1.55a9.94 9.94 0 0 0 5.277 1.508h.004c5.518 0 10.004-4.486 10.004-10.004C21.996 6.486 17.522 2 12.004 2zm0 18.28h-.003a8.24 8.24 0 0 1-4.21-1.155l-.302-.18-3.13 1.026 1.043-3.052-.198-.312a8.23 8.23 0 0 1-1.26-4.395c0-4.55 3.706-8.257 8.264-8.257 2.208 0 4.283.86 5.844 2.42a8.208 8.208 0 0 1 2.416 5.842c0 4.55-3.708 8.263-8.264 8.263z"/></svg>
   </a>
 </div>
 
 <footer>
   <div class="wrap footer-inner">
-    <div class="brand">SMC Concrete</div>
-    <div>Solid Strength on Time — Servicing across Bangalore</div>
+    <div class="brand">SM<span class="gold">C</span> CONCRET<span class="gold">E</span></div>
+    <div class="footer-right">
+      <div>Solid Strength on Time — Servicing across Bangalore</div>
+      <div class="footer-address">No.105, Srinivasapura, Baiyapanahalli, Mittiganahalli, Bagalur Post, Yelahanka, Bangalore -64</div>
+    </div>
   </div>
 </footer>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Dynamically add reveal classes to elements
+    const elementsToReveal = document.querySelectorAll('.hero-content, .clients-label, .marquee-container, .section-head, .service-body, .process-step, .coverage-grid > div, .coverage-visual, .contact-panel');
+    
+    elementsToReveal.forEach((el) => {
+      el.classList.add('reveal');
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if(entry.isIntersecting){
+          // Small staggered timeout based on DOM appearance order if they appear simultaneously
+          setTimeout(() => {
+            entry.target.classList.add('reveal-active');
+          }, 50 * i); // slight stagger
+        } else {
+          entry.target.classList.remove('reveal-active');
+        }
+      });
+    }, { rootMargin: "0px 0px -80px 0px", threshold: 0.1 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  });
+</script>
 </body>
 </html>
