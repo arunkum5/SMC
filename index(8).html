@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMC Concrete — Solid Strength on Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --concrete: #c9c4b6;
+    --concrete-dark: #a49c8b;
+    --charcoal: #221f1c;
+    --charcoal-soft: #34302b;
+    --amber: #e0a531;
+    --rust: #a2461f;
+    --paper: #f0ece2;
+    --line: rgba(34,31,28,0.16);
+    --line-light: rgba(240,236,226,0.22);
+    --font-head: 'Archivo Expanded', sans-serif;
+    --font-body: 'Work Sans', sans-serif;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--charcoal);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+
+  a{ color: inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  h1, h2, h3{
+    font-family: var(--font-head);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  :focus-visible{
+    outline: 3px solid var(--rust);
+    outline-offset: 3px;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--charcoal);
+    border-bottom: 4px solid var(--amber);
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    max-width: 1120px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+  .brand{
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--paper);
+    white-space: nowrap;
+  }
+  .brand span{ color: var(--amber); }
+  nav{
+    display:flex;
+    gap: 28px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  nav a{
+    text-decoration:none;
+    color: var(--concrete);
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  nav a:hover{ color: var(--paper); border-color: var(--amber); }
+  .header-call{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background: var(--amber);
+    color: var(--charcoal);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 9px 16px;
+    text-decoration:none;
+    white-space: nowrap;
+    border: 2px solid var(--amber);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .header-call:hover{ background: transparent; color: var(--paper); }
+  .nav-toggle{ display:none; }
+
+  @media (max-width: 780px){
+    nav{ display:none; }
+    .header-inner{ padding: 16px 20px; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background: var(--charcoal);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+    padding: 88px 0 0;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 40px;
+    align-items: end;
+    padding-bottom: 64px;
+  }
+  .hero-eyebrow-line{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom: 22px;
+    color: var(--concrete);
+    font-size: 15px;
+  }
+  .hero-eyebrow-line .bar{
+    width: 40px; height: 3px; background: var(--amber);
+  }
+  .hero h1{
+    font-size: clamp(46px, 6.4vw, 82px);
+    color: var(--paper);
+    max-width: 11ch;
+  }
+  .hero h1 em{
+    font-style: normal;
+    color: var(--amber);
+  }
+  .hero-sub{
+    margin-top: 24px;
+    font-size: 19px;
+    color: var(--concrete);
+    max-width: 46ch;
+  }
+  .hero-ctas{
+    display:flex;
+    gap: 16px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap: 10px;
+    padding: 15px 26px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    border: 2px solid var(--amber);
+  }
+  .btn-solid{
+    background: var(--amber);
+    color: var(--charcoal);
+  }
+  .btn-solid:hover{ background: var(--paper); border-color: var(--paper); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--paper);
+    border-color: var(--line-light);
+  }
+  .btn-ghost:hover{ border-color: var(--paper); }
+
+  .hero-panel{
+    background: var(--charcoal-soft);
+    border: 1px solid var(--line-light);
+    padding: 30px;
+  }
+  .hero-panel .label{
+    font-size: 13px;
+    color: var(--amber);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .hero-panel ul{ list-style:none; }
+  .hero-panel li{
+    display:flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line-light);
+    color: var(--concrete);
+    font-size: 15px;
+  }
+  .hero-panel li:first-of-type{ border-top:none; }
+  .hero-panel li strong{ color: var(--paper); font-weight: 600; }
+
+  .slab-edge{
+    height: 46px;
+    width: 100%;
+    background: var(--paper);
+    clip-path: polygon(0 100%, 0 40%, 6% 100%, 12% 30%, 18% 100%, 24% 45%, 30% 100%, 36% 25%, 42% 100%, 48% 40%, 54% 100%, 60% 30%, 66% 100%, 72% 45%, 78% 100%, 84% 20%, 90% 100%, 96% 40%, 100% 100%);
+  }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero{ padding-top: 56px; }
+  }
+
+  /* ---------- SECTION BASICS ---------- */
+  section{ padding: 84px 0; }
+  .section-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 48px;
+    border-bottom: 3px solid var(--charcoal);
+    padding-bottom: 20px;
+  }
+  .section-head h2{ font-size: clamp(30px, 4vw, 42px); }
+  .section-head .tag{
+    font-size: 15px;
+    color: var(--rust);
+    font-weight: 600;
+    white-space: nowrap;
+    padding-bottom: 6px;
+  }
+
+  /* ---------- SERVICE ---------- */
+  .service{ background: var(--paper); }
+  .service-body{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items:start;
+  }
+  .service-body p{ font-size: 17px; margin-bottom: 18px; max-width: 56ch; }
+  .spec-list{
+    list-style:none;
+    display:grid;
+    gap: 0;
+    border-top: 2px solid var(--charcoal);
+  }
+  .spec-list li{
+    display:grid;
+    grid-template-columns: 40% 60%;
+    padding: 16px 0;
+    border-bottom: 2px solid var(--charcoal);
+    font-size: 15px;
+  }
+  .spec-list li .k{ font-weight: 600; }
+  .spec-list li .v{ color: var(--charcoal-soft); }
+
+  @media (max-width: 860px){
+    .service-body{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process{ background: var(--concrete); }
+  .process-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--charcoal);
+    border-left: 2px solid var(--charcoal);
+  }
+  .process-step{
+    border-right: 2px solid var(--charcoal);
+    border-bottom: 2px solid var(--charcoal);
+    padding: 34px 28px;
+    background: var(--paper);
+  }
+  .process-step .num{
+    font-family: var(--font-head);
+    font-size: 40px;
+    color: var(--rust);
+    display:block;
+    margin-bottom: 14px;
+  }
+  .process-step h3{ font-size: 20px; margin-bottom: 10px; }
+  .process-step p{ font-size: 15px; color: var(--charcoal-soft); }
+
+  @media (max-width: 780px){
+    .process-grid{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- COVERAGE ---------- */
+  .coverage{ background: var(--charcoal); color: var(--paper); }
+  .coverage-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .coverage h2{ color: var(--paper); }
+  .coverage p{ color: var(--concrete); font-size: 17px; margin-top: 18px; max-width: 48ch; }
+  .area-pins{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .area-pins span{
+    border: 1px solid var(--line-light);
+    color: var(--concrete);
+    font-size: 14px;
+    padding: 7px 14px;
+  }
+  .coverage-visual{
+    aspect-ratio: 1/1;
+    border: 1px solid var(--line-light);
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .coverage-visual svg{ width: 100%; height: 100%; }
+
+  @media (max-width: 860px){
+    .coverage-grid{ grid-template-columns: 1fr; }
+    .coverage-visual{ order: -1; max-width: 320px; margin: 0 auto; }
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{ background: var(--paper); }
+  .contact-panel{
+    background: var(--charcoal);
+    color: var(--paper);
+    padding: 56px;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items:center;
+  }
+  .contact-panel h2{ color: var(--paper); font-size: clamp(28px, 3.6vw, 38px); }
+  .contact-panel p{ color: var(--concrete); margin-top: 14px; font-size: 16px; max-width: 44ch; }
+  .call-lines{
+    display:grid;
+    gap: 14px;
+  }
+  .call-lines a{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    background: var(--charcoal-soft);
+    border: 1px solid var(--line-light);
+    padding: 18px 22px;
+    text-decoration:none;
+    color: var(--paper);
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 700;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .call-lines a small{
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--amber);
+    display:block;
+    margin-bottom: 4px;
+  }
+  .call-lines a:hover{ border-color: var(--amber); background: var(--charcoal); }
+  .call-icon{ font-family: var(--font-body); font-size: 20px; color: var(--amber); }
+
+  @media (max-width: 860px){
+    .contact-panel{ grid-template-columns: 1fr; padding: 36px 26px; }
+  }
+
+  /* ---------- FLOATING ACTIONS ---------- */
+  .floating-actions{
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 100;
+    display:flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .fab{
+    width: 56px;
+    height: 56px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border: 2px solid var(--charcoal);
+    text-decoration:none;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.28);
+    transition: transform 0.15s ease;
+  }
+  .fab:hover{ transform: translateY(-2px); }
+  .fab-call{ background: var(--amber); }
+  .fab-whatsapp{ background: #25D366; border-color: #128C3E; }
+  .fab svg{ width: 26px; height: 26px; }
+
+  @media (max-width: 600px){
+    .floating-actions{ right: 16px; bottom: 16px; gap: 12px; }
+    .fab{ width: 50px; height: 50px; }
+    .fab svg{ width: 23px; height: 23px; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background: var(--charcoal);
+    color: var(--concrete);
+    padding: 30px 0;
+    border-top: 4px solid var(--amber);
+  }
+  .footer-inner{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 14px;
+  }
+  .footer-inner .brand{ font-size: 16px; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">SMC <span>CONCRETE</span></div>
+    <nav>
+      <a href="#service">Mixer Supply</a>
+      <a href="#process">How It Works</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="header-call" href="tel:+919845052391">Call Now — 98450 52391</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow-line"><span class="bar"></span> Ready-mix concrete mixer supply, Bangalore</div>
+      <h1>Solid strength <em>on time.</em></h1>
+      <p class="hero-sub">SMC Concrete supplies transit mixers loaded and dispatched to your site on schedule — so your pour starts when your crew is ready, not when the truck decides to show up.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-solid" href="tel:+919845052391">Call 98450 52391</a>
+        <a class="btn btn-ghost" href="tel:+919535545456">Call 95355 45456</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="label">WHAT YOU GET</div>
+      <ul>
+        <li><strong>On-time dispatch</strong><span> — mixer scheduled to your pour window, not a loose day estimate.</span></li>
+        <li><strong>Bangalore-wide coverage</strong><span> — sites across the city and surrounding areas.</span></li>
+        <li><strong>Straight booking by phone</strong><span> — confirm grade, quantity and slot in one call.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="slab-edge"></div>
+</section>
+
+<section class="service" id="service">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Mixer supply, done right</h2>
+      <div class="tag">CORE SERVICE</div>
+    </div>
+    <div class="service-body">
+      <div>
+        <p>We supply and dispatch concrete transit mixers for construction sites across Bangalore — residential builds, commercial sites, and infrastructure work. One call locks in your grade, quantity, and delivery slot.</p>
+        <p>Every mixer is routed to arrive within your confirmed window, because a late pour costs your crew more than the concrete itself. That's the job: get the mix to your site, mixed and ready, on time.</p>
+      </div>
+      <ul class="spec-list">
+        <li><span class="k">Service</span><span class="v">Transit mixer supply &amp; delivery</span></li>
+        <li><span class="k">Area</span><span class="v">Bangalore &amp; surrounding sites</span></li>
+        <li><span class="k">Booking</span><span class="v">By phone, confirmed before dispatch</span></li>
+        <li><span class="k">Priority</span><span class="v">On-time arrival at your pour window</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How booking works</h2>
+      <div class="tag">THREE STEPS</div>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <span class="num">01</span>
+        <h3>Call &amp; confirm</h3>
+        <p>Tell us your site location, concrete grade, and quantity needed.</p>
+      </div>
+      <div class="process-step">
+        <span class="num">02</span>
+        <h3>Lock the slot</h3>
+        <p>We confirm a delivery window that matches when your crew is ready to pour.</p>
+      </div>
+      <div class="process-step">
+        <span class="num">03</span>
+        <h3>Mixer arrives</h3>
+        <p>Your transit mixer reaches site on schedule, ready to unload.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coverage" id="coverage">
+  <div class="wrap coverage-grid">
+    <div>
+      <h2>Servicing across Bangalore</h2>
+      <p>Wherever your site sits in the city, SMC Concrete can route a mixer to it. Call ahead with your location and we'll confirm coverage and timing for your pour.</p>
+      <div class="area-pins">
+        <span>North Bangalore</span>
+        <span>South Bangalore</span>
+        <span>East Bangalore</span>
+        <span>West Bangalore</span>
+        <span>Outer Ring Road</span>
+      </div>
+    </div>
+    <div class="coverage-visual">
+      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="148" stroke="#e0a531" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="150" cy="150" r="105" stroke="#e0a531" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="150" cy="150" r="60" stroke="#e0a531" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="150" cy="150" r="6" fill="#e0a531"/>
+        <circle cx="205" cy="95" r="4" fill="#f0ece2"/>
+        <circle cx="90" cy="110" r="4" fill="#f0ece2"/>
+        <circle cx="210" cy="205" r="4" fill="#f0ece2"/>
+        <circle cx="95" cy="215" r="4" fill="#f0ece2"/>
+        <circle cx="150" cy="60" r="4" fill="#f0ece2"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <div>
+        <h2>Ready to schedule your mixer?</h2>
+        <p>Call either number below with your site location, grade, and quantity. We'll confirm your delivery window on the spot.</p>
+      </div>
+      <div class="call-lines">
+        <a href="tel:+919845052391"><span><small>Primary line</small>98450 52391</span><span class="call-icon">↳</span></a>
+        <a href="tel:+919535545456"><span><small>Alternate line</small>95355 45456</span><span class="call-icon">↳</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="floating-actions">
+  <a class="fab fab-whatsapp" href="https://wa.me/919845052391" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 1.98.581 3.83 1.587 5.39L2 22l4.727-1.55a9.94 9.94 0 0 0 5.277 1.508h.004c5.518 0 10.004-4.486 10.004-10.004C21.996 6.486 17.522 2 12.004 2zm0 18.28h-.003a8.24 8.24 0 0 1-4.21-1.155l-.302-.18-3.13 1.026 1.043-3.052-.198-.312a8.23 8.23 0 0 1-1.26-4.395c0-4.55 3.706-8.257 8.264-8.257 2.208 0 4.283.86 5.844 2.42a8.208 8.208 0 0 1 2.416 5.842c0 4.55-3.708 8.263-8.264 8.263z"/></svg>
+  </a>
+  <a class="fab fab-call" href="tel:+919845052391" aria-label="Call SMC Concrete">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#221f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  </a>
+</div>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="brand">SMC Concrete</div>
+    <div>Solid Strength on Time — Servicing across Bangalore</div>
+  </div>
+</footer>
+
+</body>
+</html>
