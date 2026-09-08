@@ -576,6 +576,93 @@
     .fab svg{ width: 20px; height: 20px; }
   }
 
+  /* ---------- CHATBOT ---------- */
+  .chatbot-wrapper{
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 100;
+  }
+  .chat-toggle{
+    width: 56px; height: 56px;
+    background: var(--charcoal);
+    color: var(--amber);
+    border: 2px solid var(--amber);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s ease;
+  }
+  .chat-toggle:hover{ transform: scale(1.05); }
+  .chat-toggle svg{ width: 28px; height: 28px; }
+  .chat-panel{
+    position: absolute;
+    bottom: 76px; left: 0;
+    width: 320px;
+    background: var(--paper);
+    border: 1px solid var(--charcoal);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-panel.active{ display: flex; }
+  .chat-header{
+    background: var(--charcoal);
+    color: var(--amber);
+    padding: 14px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .chat-header h4{ font-family: var(--font-head); font-size: 15px; margin: 0; display:flex; align-items:center; gap:8px; }
+  .chat-close{ background: transparent; border: none; color: var(--paper); font-size: 24px; line-height: 1; cursor: pointer; }
+  .chat-body{
+    padding: 16px;
+    height: 280px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #fdfbf7;
+  }
+  .chat-msg{
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    max-width: 85%;
+    line-height: 1.4;
+  }
+  .bot-msg{ background: var(--concrete); color: var(--charcoal); align-self: flex-start; border-bottom-left-radius: 2px; }
+  .user-msg{ background: var(--amber); color: var(--charcoal); align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500; }
+  .chat-options{
+    padding: 12px;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .chat-options button{
+    background: transparent;
+    border: 1px solid var(--charcoal-soft);
+    color: var(--charcoal);
+    padding: 8px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .chat-options button:hover{ background: var(--charcoal); color: var(--paper); }
+
+  @media (max-width: 600px){
+    .chatbot-wrapper{ left: 16px; bottom: 16px; }
+    .chat-panel{ width: calc(100vw - 32px); }
+  }
+
   /* ---------- FOOTER ---------- */
   footer{
     background: var(--charcoal);
@@ -594,9 +681,14 @@
   .footer-inner .brand{ font-size: 16px; }
   .footer-right{ text-align: right; }
   .footer-address{ margin-top: 6px; font-size: 13px; opacity: 0.8; max-width: 400px; margin-left: auto; }
+  .footer-credits{ margin-top: 16px; font-size: 12px; opacity: 0.6; display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
+  .footer-credits a{ transition: opacity 0.2s ease, color 0.2s ease; }
+  .footer-credits a:hover{ color: var(--paper); opacity: 1; }
+  .footer-credits a[target="_blank"]{ text-decoration: underline; text-underline-offset: 2px; }
   @media (max-width: 600px){
     .footer-right{ text-align: left; }
     .footer-address{ margin-left: 0; }
+    .footer-credits{ justify-content: flex-start; }
   }
 
 </style>
@@ -812,12 +904,71 @@
   </a>
 </div>
 
+<div class="chatbot-wrapper">
+  <button class="chat-toggle" aria-label="Open Chat" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+  </button>
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> SMC Assistant</h4>
+      <button class="chat-close" onclick="toggleChat()">&times;</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-msg bot-msg">
+        Hi! I can help you choose the right concrete grade for your project. What are you building?
+      </div>
+    </div>
+    <div class="chat-options" id="chatOptions">
+      <button onclick="sendMsg('Residential / Commercial', 'For residential &amp; commercial RCC, we recommend M25. For foundations, M30 is ideal.')">Residential / Commercial</button>
+      <button onclick="sendMsg('Heavy Structures / Bridges', 'For heavy structural work, M35 to M45 is recommended. For high-rise and advanced infrastructure, we supply M60 to M80.')">Heavy Structures / Bridges</button>
+      <button onclick="sendMsg('Basic Levelling (PCC)', 'For levelling and basic non-structural work, M7.5 to M15 is standard.')">Basic Levelling (PCC)</button>
+      <button onclick="sendMsg('Show all grades', 'We supply everything from M7.5 (7.5 MPa) for levelling, up to M80 (80 MPa) for specialized high-strength structures. Check our Concrete Grades section for the full table!')">Show all grades</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleChat() {
+    document.getElementById('chatPanel').classList.toggle('active');
+  }
+  function sendMsg(userText, botResponse) {
+    const chatBody = document.getElementById('chatBody');
+    const opts = document.getElementById('chatOptions');
+    opts.style.display = 'none'; // hide options after choice
+    
+    const uMsg = document.createElement('div');
+    uMsg.className = 'chat-msg user-msg';
+    uMsg.innerText = userText;
+    chatBody.appendChild(uMsg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    
+    setTimeout(() => {
+      const bMsg = document.createElement('div');
+      bMsg.className = 'chat-msg bot-msg';
+      bMsg.innerHTML = botResponse + '<br><br><em><a href="tel:+919845052391" style="color:var(--charcoal); font-weight:bold;">Call 98450 52391 to book!</a></em>';
+      chatBody.appendChild(bMsg);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      
+      // show options again after a moment
+      setTimeout(() => { 
+        opts.style.display = 'flex'; 
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 1500);
+    }, 600);
+  }
+</script>
+
 <footer>
   <div class="wrap footer-inner">
     <div class="brand">SM<span class="gold">C</span> CONCRET<span class="gold">E</span></div>
     <div class="footer-right">
       <div>Solid Strength on Time — Servicing across Bangalore</div>
       <div class="footer-address">No.105, Srinivasapura, Baiyapanahalli, Mittiganahalli, Bagalur Post, Yelahanka, Bangalore -64</div>
+      <div class="footer-credits">
+        Site by <a href="https://www.trustwork.co.in" target="_blank" rel="noopener">TrustWork</a>
+        <span>&nbsp;|&nbsp;</span>
+        <a href="tel:+919448610107" style="display:flex; align-items:center; gap:4px; text-decoration:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px; height:12px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 9448610107</a>
+      </div>
     </div>
   </div>
 </footer>
