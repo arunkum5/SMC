@@ -221,6 +221,41 @@
     color: var(--amber);
   }
 
+  .hero-stats{
+    display: flex;
+    gap: 48px;
+    margin-top: 48px;
+    border-top: 1px solid rgba(240,236,226,0.15);
+    padding-top: 28px;
+  }
+  .stat-item{
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+  }
+  .stat-item .num-wrap{
+    font-family: var(--font-head);
+    font-size: 38px;
+    color: var(--amber);
+    font-weight: 800;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+  }
+  .stat-item .stat-plus{
+    font-size: 26px;
+    margin-left: 2px;
+    color: var(--paper);
+  }
+  .stat-item .stat-label{
+    font-size: 13px;
+    color: var(--concrete);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
   .slab-edge{
     height: 46px;
     width: 100%;
@@ -230,6 +265,9 @@
 
   @media (max-width: 860px){
     .hero{ padding-top: 56px; }
+    .hero-stats{ gap: 24px; flex-direction: column; border-top: none; border-left: 2px solid var(--amber); padding-top: 0; padding-left: 16px; margin-top: 36px; }
+    .stat-item .num-wrap{ font-size: 34px; }
+    .stat-item .stat-plus{ font-size: 22px; }
   }
 
   /* ---------- CLIENTS MARQUEE ---------- */
@@ -736,6 +774,22 @@
       <a class="btn btn-solid" href="tel:+919845052391">Call 98450 52391</a>
       <a class="btn btn-ghost" href="tel:+919535545456">Call 95355 45456</a>
     </div>
+
+    <div class="hero-stats reveal">
+      <div class="stat-item" onmouseenter="if(typeof window.animateCounter==='function') window.animateCounter(this, 10)">
+        <div class="num-wrap"><span class="stat-num" data-target="10">0</span><span class="stat-plus">+</span></div>
+        <div class="stat-label">Years of Trust</div>
+      </div>
+      <div class="stat-item" onmouseenter="if(typeof window.animateCounter==='function') window.animateCounter(this, 100)">
+        <div class="num-wrap"><span class="stat-num" data-target="100">0</span><span class="stat-plus">+</span></div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item" onmouseenter="if(typeof window.animateCounter==='function') window.animateCounter(this, 700)">
+        <div class="num-wrap"><span class="stat-num" data-target="700">0</span><span class="stat-plus">+</span></div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+    </div>
+
   </div>
   <div class="slab-edge"></div>
 </section>
@@ -1012,6 +1066,44 @@
     }, { rootMargin: "0px 0px -80px 0px", threshold: 0.1 });
 
     reveals.forEach(el => revealObserver.observe(el));
+    
+    // Stats Counter Animation
+    window.animateCounter = function(el, target) {
+      const numEl = el.querySelector('.stat-num');
+      let start = 0;
+      const duration = 2000;
+      const startTime = performance.now();
+      
+      function updateNum(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // easeOutQuart
+        const easeOut = 1 - Math.pow(1 - progress, 4);
+        numEl.innerText = Math.floor(easeOut * target);
+        
+        if(progress < 1) {
+          requestAnimationFrame(updateNum);
+        } else {
+          numEl.innerText = target;
+        }
+      }
+      requestAnimationFrame(updateNum);
+    };
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.querySelectorAll('.stat-item').forEach(item => {
+            const target = parseInt(item.querySelector('.stat-num').getAttribute('data-target'));
+            window.animateCounter(item, target);
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    const statsContainer = document.querySelector('.hero-stats');
+    if(statsContainer) statsObserver.observe(statsContainer);
+
   });
 </script>
 </body>
