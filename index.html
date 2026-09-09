@@ -6,7 +6,7 @@
 <title>SMC Concrete — Solid Strength on Time</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Cinzel:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --concrete: #c9c4b6;
@@ -153,12 +153,16 @@
     width: 40px; height: 3px; background: var(--amber);
   }
   .hero h1{
+    font-family: 'Playfair Display', serif;
     font-size: clamp(46px, 6.4vw, 82px);
     color: var(--paper);
-    max-width: 11ch;
+    max-width: 12ch;
+    font-weight: 700;
+    letter-spacing: 0;
   }
   .hero h1 em{
-    font-style: normal;
+    font-style: italic;
+    font-weight: 600;
     color: var(--amber);
   }
   .hero-sub{
