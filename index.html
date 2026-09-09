@@ -750,10 +750,9 @@
 
   /* ---------- FOOTER ---------- */
   footer{
-    background: linear-gradient(rgba(240, 236, 226, 0.85), rgba(240, 236, 226, 0.85)), url('bangalore_bg.webp') center/cover;
-    background-attachment: fixed;
-    color: var(--charcoal);
-    padding: 40px 0;
+    background: var(--charcoal);
+    color: var(--concrete);
+    padding: 30px 0;
     border-top: 4px solid var(--amber);
   }
   .footer-inner{
@@ -763,16 +762,13 @@
     flex-wrap: wrap;
     gap: 12px;
     font-size: 14px;
-    font-weight: 500;
   }
-  .footer-inner .brand{ font-size: 16px; color: var(--charcoal); text-shadow: none; }
-  .footer-inner .brand:hover{ transform: none; text-shadow: none; }
-  .footer-inner .brand .gold{ color: var(--rust); text-shadow: none; }
+  .footer-inner .brand{ font-size: 16px; }
   .footer-right{ text-align: right; }
   .footer-address{ margin-top: 6px; font-size: 13px; opacity: 0.8; max-width: 400px; margin-left: auto; }
-  .footer-credits{ margin-top: 16px; font-size: 12px; opacity: 0.7; display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
-  .footer-credits a{ color: var(--charcoal); transition: opacity 0.2s ease, color 0.2s ease; }
-  .footer-credits a:hover{ color: var(--rust); opacity: 1; }
+  .footer-credits{ margin-top: 16px; font-size: 12px; opacity: 0.6; display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
+  .footer-credits a{ transition: opacity 0.2s ease, color 0.2s ease; }
+  .footer-credits a:hover{ color: var(--paper); opacity: 1; }
   .footer-credits a[target="_blank"]{ text-decoration: underline; text-underline-offset: 2px; }
   @media (max-width: 600px){
     .footer-right{ text-align: left; }
