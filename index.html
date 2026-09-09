@@ -152,8 +152,10 @@
     align-items:center;
     gap:12px;
     margin-bottom: 22px;
-    color: var(--concrete);
-    font-size: 15px;
+    color: var(--paper);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
   }
   .hero-eyebrow-line .bar{
     width: 40px; height: 3px; background: var(--amber);
@@ -393,7 +395,7 @@
     gap: 56px;
     align-items:start;
   }
-  .service-body p{ font-size: 17px; margin-bottom: 18px; max-width: 56ch; color: var(--concrete); }
+  .service-body p{ font-size: 18px; font-weight: 500; margin-bottom: 18px; max-width: 56ch; color: var(--paper); line-height: 1.6; }
   .spec-list{
     list-style:none;
     display:grid;
@@ -405,10 +407,10 @@
     grid-template-columns: 40% 60%;
     padding: 16px 0;
     border-bottom: 2px solid rgba(240,236,226,0.15);
-    font-size: 15px;
+    font-size: 16px;
   }
-  .spec-list li .k{ font-weight: 600; color: var(--paper); }
-  .spec-list li .v{ color: var(--concrete); }
+  .spec-list li .k{ font-weight: 700; color: #fff; }
+  .spec-list li .v{ color: var(--paper); font-weight: 500; }
 
   @media (max-width: 860px){
     .service-body{ grid-template-columns: 1fr; }
@@ -428,8 +430,8 @@
     gap: 56px;
     align-items: start;
   }
-  .grades-content h3{ font-size: 26px; margin-bottom: 16px; color: var(--paper); }
-  .grades-content p{ font-size: 16px; color: var(--concrete); margin-bottom: 20px; max-width: 50ch; }
+  .grades-content h3{ font-size: 26px; margin-bottom: 16px; color: #fff; }
+  .grades-content p{ font-size: 17px; font-weight: 500; color: var(--paper); margin-bottom: 20px; max-width: 50ch; line-height: 1.6; }
   .grades-cta{
     margin-top: 48px;
     padding: 32px;
@@ -748,9 +750,10 @@
 
   /* ---------- FOOTER ---------- */
   footer{
-    background: var(--charcoal);
-    color: var(--concrete);
-    padding: 30px 0;
+    background: linear-gradient(rgba(240, 236, 226, 0.85), rgba(240, 236, 226, 0.85)), url('bangalore_bg.webp') center/cover;
+    background-attachment: fixed;
+    color: var(--charcoal);
+    padding: 40px 0;
     border-top: 4px solid var(--amber);
   }
   .footer-inner{
@@ -760,13 +763,16 @@
     flex-wrap: wrap;
     gap: 12px;
     font-size: 14px;
+    font-weight: 500;
   }
-  .footer-inner .brand{ font-size: 16px; }
+  .footer-inner .brand{ font-size: 16px; color: var(--charcoal); text-shadow: none; }
+  .footer-inner .brand:hover{ transform: none; text-shadow: none; }
+  .footer-inner .brand .gold{ color: var(--rust); text-shadow: none; }
   .footer-right{ text-align: right; }
   .footer-address{ margin-top: 6px; font-size: 13px; opacity: 0.8; max-width: 400px; margin-left: auto; }
-  .footer-credits{ margin-top: 16px; font-size: 12px; opacity: 0.6; display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
-  .footer-credits a{ transition: opacity 0.2s ease, color 0.2s ease; }
-  .footer-credits a:hover{ color: var(--paper); opacity: 1; }
+  .footer-credits{ margin-top: 16px; font-size: 12px; opacity: 0.7; display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
+  .footer-credits a{ color: var(--charcoal); transition: opacity 0.2s ease, color 0.2s ease; }
+  .footer-credits a:hover{ color: var(--rust); opacity: 1; }
   .footer-credits a[target="_blank"]{ text-decoration: underline; text-underline-offset: 2px; }
   @media (max-width: 600px){
     .footer-right{ text-align: left; }
